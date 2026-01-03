@@ -22,11 +22,13 @@
 		8EA392346CDFC15AFE864DFD /* RLButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03A91E3E23F967458F5B284 /* RLButton.swift */; };
 		8FA675B04711007875F06AD1 /* MuscleGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315E425A0D41DEB1BE3CB5BC /* MuscleGroup.swift */; };
 		9033D04AE9B45DEC42FB7AA5 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428C3BBF81F4814590B0449A /* Template.swift */; };
+		90EDADCDCF441898EFE86336 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E424A4AF36BB6EAFBF8B83A /* PersistenceService.swift */; };
 		A0FE0764F16BD2FD01CF652C /* RLSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78588DB6CC80A23E8CA8063 /* RLSectionHeader.swift */; };
 		AD4D8FA5A807DA4256E390D8 /* WeightUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97ECF02FA5ED0E382ABE2278 /* WeightUnit.swift */; };
 		B23B3BFDC8E3C117EAB05AF8 /* RLInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850B1FCCE88BBB54F4F8F2BE /* RLInput.swift */; };
 		BE8ADE3F70EB3D6AEDAB074A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7843DA50A30F873400B38AA4 /* ContentView.swift */; };
 		C2BCEAB4387DAA0B6669E8BF /* RLPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBF5163A30EC9D54BA545D8 /* RLPill.swift */; };
+		D4D2976101C17FC84FE77046 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B823CA055F4E6DDED6B7513A /* UserSettings.swift */; };
 		DEDB87CF29BF882DC524DF81 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F986A0E6F0EB0AA752998A /* Theme.swift */; };
 		E422021844A9B43155F99F46 /* ObsidianTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F08AA48533F1BFDCAC21E66 /* ObsidianTheme.swift */; };
 		F84E959105DC0D45632C0B2F /* WorkoutExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8983C2002E645561F9FBF9FB /* WorkoutExercise.swift */; };
@@ -34,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E424A4AF36BB6EAFBF8B83A /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
 		20A4A6E35D6C40AE6A39C0EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2805705B5931F80148D11C5E /* RepLedger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RepLedger.entitlements; sourceTree = "<group>"; };
 		29AAEC1AD80528001896244E /* RLEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLEmptyState.swift; sourceTree = "<group>"; };
@@ -53,6 +56,7 @@
 		9AE8BB061795DDFCAD679378 /* RepLedger.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = RepLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4D5DB9F9C8A715EAE692420 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		B6FFE266AE4EE5A17D74B44E /* RLStatTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLStatTile.swift; sourceTree = "<group>"; };
+		B823CA055F4E6DDED6B7513A /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		B93756CB904465FBD5BE13F4 /* RepLedgerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepLedgerApp.swift; sourceTree = "<group>"; };
 		C23003DBBF6A124FC8232A6A /* SetEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetEntry.swift; sourceTree = "<group>"; };
 		C7F986A0E6F0EB0AA752998A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -184,6 +188,8 @@
 			isa = PBXGroup;
 			children = (
 				4EB7992F2B80BB0322AE4ED3 /* SyncEngine */,
+				1E424A4AF36BB6EAFBF8B83A /* PersistenceService.swift */,
+				B823CA055F4E6DDED6B7513A /* UserSettings.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -342,6 +348,7 @@
 				8132C51CC246AAA4518B5A38 /* ForgeTheme.swift in Sources */,
 				8FA675B04711007875F06AD1 /* MuscleGroup.swift in Sources */,
 				E422021844A9B43155F99F46 /* ObsidianTheme.swift in Sources */,
+				90EDADCDCF441898EFE86336 /* PersistenceService.swift in Sources */,
 				8EA392346CDFC15AFE864DFD /* RLButton.swift in Sources */,
 				596AD383195EF64870AEAC9E /* RLCard.swift in Sources */,
 				5D9CA41D0BE0BAD06792A42C /* RLEmptyState.swift in Sources */,
@@ -356,6 +363,7 @@
 				9033D04AE9B45DEC42FB7AA5 /* Template.swift in Sources */,
 				DEDB87CF29BF882DC524DF81 /* Theme.swift in Sources */,
 				83790C80B35D44BEF1604FC5 /* ThemeManager.swift in Sources */,
+				D4D2976101C17FC84FE77046 /* UserSettings.swift in Sources */,
 				AD4D8FA5A807DA4256E390D8 /* WeightUnit.swift in Sources */,
 				1B00652DF02DAD9A42780C25 /* Workout.swift in Sources */,
 				F84E959105DC0D45632C0B2F /* WorkoutExercise.swift in Sources */,
