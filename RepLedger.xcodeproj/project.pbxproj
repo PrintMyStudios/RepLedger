@@ -8,17 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		1A6A1FDCAA37836C97D39CC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63BC4BAB7B647BC738808B43 /* Assets.xcassets */; };
+		3ADBFC12D950D122FEE92D19 /* StudioTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA44D302E3672D844DE3475 /* StudioTheme.swift */; };
 		7B4448BAB7645A75B0A50A66 /* RepLedgerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93756CB904465FBD5BE13F4 /* RepLedgerApp.swift */; };
+		8132C51CC246AAA4518B5A38 /* ForgeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD29DD1672E8A1BF1849D449 /* ForgeTheme.swift */; };
+		83790C80B35D44BEF1604FC5 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D5DB9F9C8A715EAE692420 /* ThemeManager.swift */; };
 		BE8ADE3F70EB3D6AEDAB074A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7843DA50A30F873400B38AA4 /* ContentView.swift */; };
+		DEDB87CF29BF882DC524DF81 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F986A0E6F0EB0AA752998A /* Theme.swift */; };
+		E422021844A9B43155F99F46 /* ObsidianTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F08AA48533F1BFDCAC21E66 /* ObsidianTheme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		20A4A6E35D6C40AE6A39C0EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2805705B5931F80148D11C5E /* RepLedger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RepLedger.entitlements; sourceTree = "<group>"; };
+		5F08AA48533F1BFDCAC21E66 /* ObsidianTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObsidianTheme.swift; sourceTree = "<group>"; };
 		63BC4BAB7B647BC738808B43 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6EA44D302E3672D844DE3475 /* StudioTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioTheme.swift; sourceTree = "<group>"; };
 		7843DA50A30F873400B38AA4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9AE8BB061795DDFCAD679378 /* RepLedger.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = RepLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4D5DB9F9C8A715EAE692420 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		B93756CB904465FBD5BE13F4 /* RepLedgerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepLedgerApp.swift; sourceTree = "<group>"; };
+		C7F986A0E6F0EB0AA752998A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		FD29DD1672E8A1BF1849D449 /* ForgeTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgeTheme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -182,6 +192,11 @@
 		E8F24B5EE9A34233076EAC29 /* Theme */ = {
 			isa = PBXGroup;
 			children = (
+				FD29DD1672E8A1BF1849D449 /* ForgeTheme.swift */,
+				5F08AA48533F1BFDCAC21E66 /* ObsidianTheme.swift */,
+				6EA44D302E3672D844DE3475 /* StudioTheme.swift */,
+				C7F986A0E6F0EB0AA752998A /* Theme.swift */,
+				A4D5DB9F9C8A715EAE692420 /* ThemeManager.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -274,7 +289,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE8ADE3F70EB3D6AEDAB074A /* ContentView.swift in Sources */,
+				8132C51CC246AAA4518B5A38 /* ForgeTheme.swift in Sources */,
+				E422021844A9B43155F99F46 /* ObsidianTheme.swift in Sources */,
 				7B4448BAB7645A75B0A50A66 /* RepLedgerApp.swift in Sources */,
+				3ADBFC12D950D122FEE92D19 /* StudioTheme.swift in Sources */,
+				DEDB87CF29BF882DC524DF81 /* Theme.swift in Sources */,
+				83790C80B35D44BEF1604FC5 /* ThemeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
