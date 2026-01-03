@@ -9,7 +9,74 @@ See @plan.md for the full product spec/roadmap and @README.md for repository ove
 
 ## Current status
 - **Milestone 1 (Foundation)**: COMPLETE
-- **Milestone 2 (Logging MVP)**: Not started
+- **Milestone 2 (Logging MVP)**: NOT STARTED ← **NEXT**
+
+---
+
+## NEXT: Milestone 2 — Logging MVP
+
+### What to build
+1. **Templates CRUD** (`RepLedger/Features/Templates/`)
+   - Create / edit / delete / duplicate templates
+   - Reorder exercises within template
+   - Template list view with empty state
+   - **Free limit: 3 templates** - show count, block #4 with TODO paywall stub
+
+2. **Start Workout** (`RepLedger/Features/Start/` and `RepLedger/Features/Workout/`)
+   - Quick Start → creates empty Workout, navigates to workout editor
+   - From Template → shows template picker, creates Workout from template
+   - Update `StartWorkoutView` in ContentView.swift
+
+3. **Workout Editor** (`RepLedger/Features/Workout/WorkoutEditorView.swift`)
+   - Active workout screen with exercises as cards
+   - Each exercise card shows: name, sets in rows
+   - Set row: weight input, reps input, complete toggle (checkmark)
+   - Add exercise button → exercise picker (search existing library)
+   - Add set / duplicate last set / delete set (swipe actions)
+   - **Previous-set hints**: Show "Last: 80kg × 8" from prior workout
+   - Finish workout button → saves, navigates to history
+
+4. **Rest Timer Pill** (`RepLedger/Features/Workout/RestTimerView.swift`)
+   - Floating overlay when timer active
+   - Shows countdown, +15s button, pause/resume, dismiss
+   - Auto-starts after completing a set (if setting enabled)
+   - Uses `restTimerDuration` and `restTimerAutoStart` from UserSettings
+
+### Key implementation notes
+- Use existing SwiftData models: `Workout`, `WorkoutExercise`, `SetEntry`
+- Use existing UI components: `RLCard`, `RLButton`, `RLInput`, `RLPill`
+- Fetch previous workout data via `PersistenceService`
+- Store weight in kg, display using `UserSettings.liftingUnit`
+- All views must use `ThemeManager` from environment
+
+### Files to create
+```
+RepLedger/Features/Templates/
+├── TemplateListView.swift
+├── TemplateEditorView.swift
+└── TemplateRowView.swift
+
+RepLedger/Features/Workout/
+├── WorkoutEditorView.swift
+├── ExerciseCardView.swift
+├── SetRowView.swift
+├── ExercisePickerView.swift
+└── RestTimerView.swift
+```
+
+### Acceptance criteria
+- User can create a template with exercises
+- User can start workout (empty or from template)
+- User can add exercises, add sets, enter weight/reps, complete sets
+- User can see previous performance hints
+- Rest timer works with auto-start
+- Workout saves to history when finished
+- All builds pass: iPhone, iPad, Mac Catalyst
+
+### After Milestone 2
+Ask user for approval before starting Milestone 3 (History + Exercise detail).
+
+---
 
 ## Non‑negotiable rules
 - Do **not** copy any competitor app's UI layouts, text, icons, assets, or branding. All UI and copy must be original.
