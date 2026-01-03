@@ -3,17 +3,18 @@ import SwiftData
 
 @main
 struct RepLedgerApp: App {
-    // TODO: Milestone 1 - Initialize ThemeManager and inject into environment
+    // Theme manager for global theme state
+    @State private var themeManager = ThemeManager()
+
     // TODO: Milestone 4 - Initialize PurchaseManager and EntitlementsService
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            // TODO: Milestone 1 - Add SwiftData models here
-            // Exercise.self,
-            // Template.self,
-            // Workout.self,
-            // WorkoutExercise.self,
-            // SetEntry.self,
+            Exercise.self,
+            Template.self,
+            Workout.self,
+            WorkoutExercise.self,
+            SetEntry.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -27,6 +28,7 @@ struct RepLedgerApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(themeManager)
         }
         .modelContainer(sharedModelContainer)
     }

@@ -7,38 +7,56 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D34FB63CE910529935DD489 /* Equipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8B3E8A9B755244DECF1A4F /* Equipment.swift */; };
 		1A6A1FDCAA37836C97D39CC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63BC4BAB7B647BC738808B43 /* Assets.xcassets */; };
+		1B00652DF02DAD9A42780C25 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D18B3DFF8D758F54349F8ABD /* Workout.swift */; };
 		3ADBFC12D950D122FEE92D19 /* StudioTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA44D302E3672D844DE3475 /* StudioTheme.swift */; };
 		4D45298337D6E90450ECA3E1 /* RLStatTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FFE266AE4EE5A17D74B44E /* RLStatTile.swift */; };
 		596AD383195EF64870AEAC9E /* RLCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A33AE7988A2A80338D23DCC /* RLCard.swift */; };
 		5D9CA41D0BE0BAD06792A42C /* RLEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AAEC1AD80528001896244E /* RLEmptyState.swift */; };
+		791CF00BFDC2ECC46A3F5C1A /* SetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FE158A25FB31AB81A9B573 /* SetType.swift */; };
 		7B4448BAB7645A75B0A50A66 /* RepLedgerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93756CB904465FBD5BE13F4 /* RepLedgerApp.swift */; };
+		7FF4B50F57D04502DCCC355C /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BC6E23E49A6806878FD9C0 /* Exercise.swift */; };
 		8132C51CC246AAA4518B5A38 /* ForgeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD29DD1672E8A1BF1849D449 /* ForgeTheme.swift */; };
 		83790C80B35D44BEF1604FC5 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D5DB9F9C8A715EAE692420 /* ThemeManager.swift */; };
 		8EA392346CDFC15AFE864DFD /* RLButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03A91E3E23F967458F5B284 /* RLButton.swift */; };
+		8FA675B04711007875F06AD1 /* MuscleGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315E425A0D41DEB1BE3CB5BC /* MuscleGroup.swift */; };
+		9033D04AE9B45DEC42FB7AA5 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428C3BBF81F4814590B0449A /* Template.swift */; };
 		A0FE0764F16BD2FD01CF652C /* RLSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78588DB6CC80A23E8CA8063 /* RLSectionHeader.swift */; };
+		AD4D8FA5A807DA4256E390D8 /* WeightUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97ECF02FA5ED0E382ABE2278 /* WeightUnit.swift */; };
 		B23B3BFDC8E3C117EAB05AF8 /* RLInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850B1FCCE88BBB54F4F8F2BE /* RLInput.swift */; };
 		BE8ADE3F70EB3D6AEDAB074A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7843DA50A30F873400B38AA4 /* ContentView.swift */; };
 		C2BCEAB4387DAA0B6669E8BF /* RLPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBF5163A30EC9D54BA545D8 /* RLPill.swift */; };
 		DEDB87CF29BF882DC524DF81 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F986A0E6F0EB0AA752998A /* Theme.swift */; };
 		E422021844A9B43155F99F46 /* ObsidianTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F08AA48533F1BFDCAC21E66 /* ObsidianTheme.swift */; };
+		F84E959105DC0D45632C0B2F /* WorkoutExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8983C2002E645561F9FBF9FB /* WorkoutExercise.swift */; };
+		FB23782797EC39A930D48941 /* SetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23003DBBF6A124FC8232A6A /* SetEntry.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		20A4A6E35D6C40AE6A39C0EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2805705B5931F80148D11C5E /* RepLedger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RepLedger.entitlements; sourceTree = "<group>"; };
 		29AAEC1AD80528001896244E /* RLEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLEmptyState.swift; sourceTree = "<group>"; };
+		315E425A0D41DEB1BE3CB5BC /* MuscleGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuscleGroup.swift; sourceTree = "<group>"; };
+		32FE158A25FB31AB81A9B573 /* SetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetType.swift; sourceTree = "<group>"; };
+		428C3BBF81F4814590B0449A /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		4A33AE7988A2A80338D23DCC /* RLCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLCard.swift; sourceTree = "<group>"; };
 		5F08AA48533F1BFDCAC21E66 /* ObsidianTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObsidianTheme.swift; sourceTree = "<group>"; };
 		63BC4BAB7B647BC738808B43 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6EA44D302E3672D844DE3475 /* StudioTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioTheme.swift; sourceTree = "<group>"; };
 		7843DA50A30F873400B38AA4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		850B1FCCE88BBB54F4F8F2BE /* RLInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLInput.swift; sourceTree = "<group>"; };
+		8983C2002E645561F9FBF9FB /* WorkoutExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutExercise.swift; sourceTree = "<group>"; };
+		8A8B3E8A9B755244DECF1A4F /* Equipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipment.swift; sourceTree = "<group>"; };
+		97BC6E23E49A6806878FD9C0 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		97ECF02FA5ED0E382ABE2278 /* WeightUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightUnit.swift; sourceTree = "<group>"; };
 		9AE8BB061795DDFCAD679378 /* RepLedger.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = RepLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4D5DB9F9C8A715EAE692420 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		B6FFE266AE4EE5A17D74B44E /* RLStatTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLStatTile.swift; sourceTree = "<group>"; };
 		B93756CB904465FBD5BE13F4 /* RepLedgerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepLedgerApp.swift; sourceTree = "<group>"; };
+		C23003DBBF6A124FC8232A6A /* SetEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetEntry.swift; sourceTree = "<group>"; };
 		C7F986A0E6F0EB0AA752998A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		D18B3DFF8D758F54349F8ABD /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		D78588DB6CC80A23E8CA8063 /* RLSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLSectionHeader.swift; sourceTree = "<group>"; };
 		F03A91E3E23F967458F5B284 /* RLButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLButton.swift; sourceTree = "<group>"; };
 		FD29DD1672E8A1BF1849D449 /* ForgeTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgeTheme.swift; sourceTree = "<group>"; };
@@ -124,6 +142,11 @@
 			isa = PBXGroup;
 			children = (
 				A910C2CF12DF9CC0442B649A /* Enums */,
+				97BC6E23E49A6806878FD9C0 /* Exercise.swift */,
+				C23003DBBF6A124FC8232A6A /* SetEntry.swift */,
+				428C3BBF81F4814590B0449A /* Template.swift */,
+				D18B3DFF8D758F54349F8ABD /* Workout.swift */,
+				8983C2002E645561F9FBF9FB /* WorkoutExercise.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -168,6 +191,10 @@
 		A910C2CF12DF9CC0442B649A /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				8A8B3E8A9B755244DECF1A4F /* Equipment.swift */,
+				315E425A0D41DEB1BE3CB5BC /* MuscleGroup.swift */,
+				32FE158A25FB31AB81A9B573 /* SetType.swift */,
+				97ECF02FA5ED0E382ABE2278 /* WeightUnit.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -310,7 +337,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE8ADE3F70EB3D6AEDAB074A /* ContentView.swift in Sources */,
+				0D34FB63CE910529935DD489 /* Equipment.swift in Sources */,
+				7FF4B50F57D04502DCCC355C /* Exercise.swift in Sources */,
 				8132C51CC246AAA4518B5A38 /* ForgeTheme.swift in Sources */,
+				8FA675B04711007875F06AD1 /* MuscleGroup.swift in Sources */,
 				E422021844A9B43155F99F46 /* ObsidianTheme.swift in Sources */,
 				8EA392346CDFC15AFE864DFD /* RLButton.swift in Sources */,
 				596AD383195EF64870AEAC9E /* RLCard.swift in Sources */,
@@ -320,9 +350,15 @@
 				A0FE0764F16BD2FD01CF652C /* RLSectionHeader.swift in Sources */,
 				4D45298337D6E90450ECA3E1 /* RLStatTile.swift in Sources */,
 				7B4448BAB7645A75B0A50A66 /* RepLedgerApp.swift in Sources */,
+				FB23782797EC39A930D48941 /* SetEntry.swift in Sources */,
+				791CF00BFDC2ECC46A3F5C1A /* SetType.swift in Sources */,
 				3ADBFC12D950D122FEE92D19 /* StudioTheme.swift in Sources */,
+				9033D04AE9B45DEC42FB7AA5 /* Template.swift in Sources */,
 				DEDB87CF29BF882DC524DF81 /* Theme.swift in Sources */,
 				83790C80B35D44BEF1604FC5 /* ThemeManager.swift in Sources */,
+				AD4D8FA5A807DA4256E390D8 /* WeightUnit.swift in Sources */,
+				1B00652DF02DAD9A42780C25 /* Workout.swift in Sources */,
+				F84E959105DC0D45632C0B2F /* WorkoutExercise.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
