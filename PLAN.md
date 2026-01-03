@@ -256,7 +256,7 @@ For a given `Exercise` in an active workout:
 
 ## 9) Milestones & implementation order
 
-### Milestone 1 — Foundation (Day 1–2)
+### Milestone 1 — Foundation (Day 1–2) ✅ COMPLETE
 - Xcode project + targets for iOS/iPad/Mac
 - Theme system + core components
 - SwiftData models + persistence service
@@ -264,6 +264,14 @@ For a given `Exercise` in an active workout:
 
 **Acceptance**
 - App launches, onboarding sets units/theme, shows empty dashboard.
+
+**Implementation notes:**
+- Project uses xcodegen (`project.yml`) for Xcode project generation
+- Bundle ID: `com.repledger.app`
+- 50+ seeded exercises across all muscle groups
+- 5-screen onboarding: Welcome → Lifting Units → Bodyweight Display → Rest Timer → Theme
+- Tab shell: Dashboard, History, Start, Exercises, Settings
+- All builds pass: iPhone, iPad, Mac Catalyst
 
 ### Milestone 2 — Logging MVP (Day 3–5)
 - Templates CRUD + free limit logic

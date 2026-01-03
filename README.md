@@ -4,7 +4,20 @@ Premium strength training tracker for iPhone, iPad, and Mac — built for progre
 
 RepLedger is a **consumer-first** lifting log with an optional **Coach** add‑on (seat-based, unlimited clients). The MVP is **offline-first**, fast, and beautifully designed with 3 built-in theme presets.
 
-> Note: This project must not copy any existing app’s UI, assets, copy, or branding. RepLedger is an original product in the strength-tracking category.
+> Note: This project must not copy any existing app's UI, assets, copy, or branding. RepLedger is an original product in the strength-tracking category.
+
+---
+
+## Current Status
+
+| Milestone | Status |
+|-----------|--------|
+| 1. Foundation | ✅ Complete |
+| 2. Logging MVP | Not started |
+| 3. History + Exercise detail | Not started |
+| 4. Pro polish + Paywalls | Not started |
+| 5. Coach skeleton | Not started |
+| 6. Tests + stability | Not started |
 
 ---
 
@@ -25,11 +38,11 @@ RepLedger is a **consumer-first** lifting log with an optional **Coach** add‑o
 ### History & Exercises
 - Workout history timeline (grouped by month)
 - Workout details with stats (duration, volume, PRs)
-- Exercise library (seeded) + search/filter
+- Exercise library (50+ seeded exercises) + search/filter
 - Exercise detail: About / History / Records / Charts (Charts partly gated)
 
 ### Rest timer
-- Auto-start after set completion (configurable)
+- Auto-start after set completion (configurable, default 90s)
 - Floating timer pill (+15s, pause, dismiss)
 
 ### Insights (Charts)
@@ -47,15 +60,33 @@ Subscriptions (StoreKit 2), no lifetime:
 
 - iOS 17+
 - iPadOS 17+
-- macOS via **Mac Catalyst** (preferred)
+- macOS 14+ via **Mac Catalyst**
 
 ---
 
 ## Setup
 
-1. Open the Xcode project.
-2. Select a target: iOS Simulator / iPad Simulator / “My Mac (Mac Catalyst)”.
-3. Build & run.
+### Prerequisites
+- Xcode 15+
+- [xcodegen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`)
+
+### Build & Run
+
+```bash
+# Generate Xcode project
+xcodegen generate
+
+# Open in Xcode
+open RepLedger.xcodeproj
+
+# Or build from command line
+xcodebuild -scheme RepLedger -destination "platform=iOS Simulator,name=iPhone 16" build
+```
+
+### Targets
+- **iOS Simulator**: iPhone 16, etc.
+- **iPad Simulator**: iPad Pro 13-inch (M4), etc.
+- **Mac Catalyst**: "My Mac (Mac Catalyst)"
 
 ### StoreKit testing (recommended during development)
 
@@ -69,38 +100,88 @@ Use a StoreKit Configuration file (`.storekit`) for local purchase testing:
 3. In the scheme: **Product → Scheme → Edit Scheme → Run → Options → StoreKit Configuration**
 4. Choose the `.storekit` file and run.
 
-> If the app includes a “mock purchases” dev toggle, you can use that too—StoreKit config is still the most realistic.
+---
+
+## Project Structure
+
+```
+RepLedger/
+├── App/
+│   ├── RepLedgerApp.swift      # Entry point, ModelContainer, ThemeManager
+│   └── ContentView.swift        # Root view, onboarding, tab shell
+├── Models/
+│   ├── Exercise.swift           # Exercise library model
+│   ├── Template.swift           # Workout templates (3 free limit)
+│   ├── Workout.swift            # Workout sessions
+│   ├── WorkoutExercise.swift    # Exercise in workout
+│   ├── SetEntry.swift           # Individual set with e1RM
+│   └── Enums/
+│       ├── MuscleGroup.swift    # 12 muscle groups
+│       ├── Equipment.swift      # 8 equipment types
+│       ├── SetType.swift        # warmup/working/dropset/failure
+│       └── WeightUnit.swift     # kg/lb + bodyweight stone+lb
+├── Services/
+│   ├── PersistenceService.swift # Exercise seeding, fetch helpers
+│   └── UserSettings.swift       # @Observable settings wrapper
+├── UIComponents/
+│   ├── Theme/
+│   │   ├── Theme.swift          # Protocol + design tokens
+│   │   ├── ThemeManager.swift   # @Observable theme state
+│   │   ├── ObsidianTheme.swift  # Premium dark
+│   │   ├── StudioTheme.swift    # Clean light
+│   │   └── ForgeTheme.swift     # Bold athletic
+│   ├── RLCard.swift
+│   ├── RLButton.swift
+│   ├── RLInput.swift
+│   ├── RLPill.swift
+│   ├── RLStatTile.swift
+│   ├── RLSectionHeader.swift
+│   └── RLEmptyState.swift
+├── Features/
+│   ├── Onboarding/
+│   │   └── OnboardingView.swift # 5-screen onboarding
+│   ├── Dashboard/
+│   ├── Start/
+│   ├── Workout/
+│   ├── History/
+│   ├── Exercises/
+│   ├── Insights/
+│   ├── Coach/
+│   └── Settings/
+├── Utilities/
+├── Resources/
+│   └── Assets.xcassets
+├── Info.plist
+└── RepLedger.entitlements
+```
 
 ---
 
 ## Themes
 
-RepLedger ships with 3 theme presets (selectable in Settings):
-- **Obsidian** — premium dark, subtle gradients
-- **Studio** — clean editorial light theme
-- **Forge** — bold athletic contrast
+RepLedger ships with 3 theme presets (selectable in Settings and Onboarding):
 
-All screens should use reusable components so theme switching is genuine (token-based).
+| Theme | Description | Color Scheme |
+|-------|-------------|--------------|
+| **Obsidian** | Premium dark, subtle gradients, amber accent | Dark |
+| **Studio** | Clean editorial light, blue-gray accent | Light |
+| **Forge** | Bold athletic contrast, red-orange accent | Dark |
+
+All screens use reusable components (`RLCard`, `RLButton`, etc.) so theme switching is genuine and global.
 
 ---
 
-## Architecture (high level)
+## Architecture
 
-- SwiftUI + MVVM
-- SwiftData persistence (offline-first)
-- Services:
-  - `MetricsService` (volume, e1RM, PR detection)
-  - `PurchaseManager` (StoreKit 2)
-  - `EntitlementsService` (isPro / isCoach gating)
-  - `SyncEngine` protocol (LocalOnly v1, Remote stub for v1.5)
-
-Suggested folder structure:
-- `App/`
-- `Models/`
-- `Services/`
-- `UIComponents/`
-- `Features/`
-- `Utilities/`
+- **SwiftUI + MVVM** with `@Observable`
+- **SwiftData** persistence (offline-first)
+- **Services:**
+  - `PersistenceService` - Data access, exercise seeding
+  - `UserSettings` - Preferences (@Observable)
+  - `ThemeManager` - Theme state (@Observable)
+  - `MetricsService` - volume, e1RM, PR detection (TODO)
+  - `PurchaseManager` - StoreKit 2 (TODO)
+  - `EntitlementsService` - isPro / isCoach gating (TODO)
 
 ---
 
