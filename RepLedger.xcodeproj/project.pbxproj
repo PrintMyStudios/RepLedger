@@ -23,6 +23,7 @@
 		8FA675B04711007875F06AD1 /* MuscleGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315E425A0D41DEB1BE3CB5BC /* MuscleGroup.swift */; };
 		9033D04AE9B45DEC42FB7AA5 /* Template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428C3BBF81F4814590B0449A /* Template.swift */; };
 		90EDADCDCF441898EFE86336 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E424A4AF36BB6EAFBF8B83A /* PersistenceService.swift */; };
+		99E3FDEFC3A0FB2CAB8A2E2B /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A12A631B055BEF56A1AB1A6 /* OnboardingView.swift */; };
 		A0FE0764F16BD2FD01CF652C /* RLSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78588DB6CC80A23E8CA8063 /* RLSectionHeader.swift */; };
 		AD4D8FA5A807DA4256E390D8 /* WeightUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97ECF02FA5ED0E382ABE2278 /* WeightUnit.swift */; };
 		B23B3BFDC8E3C117EAB05AF8 /* RLInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850B1FCCE88BBB54F4F8F2BE /* RLInput.swift */; };
@@ -44,6 +45,7 @@
 		32FE158A25FB31AB81A9B573 /* SetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetType.swift; sourceTree = "<group>"; };
 		428C3BBF81F4814590B0449A /* Template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Template.swift; sourceTree = "<group>"; };
 		4A33AE7988A2A80338D23DCC /* RLCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLCard.swift; sourceTree = "<group>"; };
+		5A12A631B055BEF56A1AB1A6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		5F08AA48533F1BFDCAC21E66 /* ObsidianTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObsidianTheme.swift; sourceTree = "<group>"; };
 		63BC4BAB7B647BC738808B43 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6EA44D302E3672D844DE3475 /* StudioTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioTheme.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 		4395B22C4EDA8CBF6A156717 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				5A12A631B055BEF56A1AB1A6 /* OnboardingView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				8132C51CC246AAA4518B5A38 /* ForgeTheme.swift in Sources */,
 				8FA675B04711007875F06AD1 /* MuscleGroup.swift in Sources */,
 				E422021844A9B43155F99F46 /* ObsidianTheme.swift in Sources */,
+				99E3FDEFC3A0FB2CAB8A2E2B /* OnboardingView.swift in Sources */,
 				90EDADCDCF441898EFE86336 /* PersistenceService.swift in Sources */,
 				8EA392346CDFC15AFE864DFD /* RLButton.swift in Sources */,
 				596AD383195EF64870AEAC9E /* RLCard.swift in Sources */,

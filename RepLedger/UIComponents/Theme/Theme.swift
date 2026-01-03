@@ -27,7 +27,8 @@ protocol Theme {
 
 // MARK: - Theme Identifier
 
-enum ThemeID: String, CaseIterable, Codable {
+enum ThemeID: String, CaseIterable, Codable, Identifiable {
+    var id: String { rawValue }
     case obsidian
     case studio
     case forge
