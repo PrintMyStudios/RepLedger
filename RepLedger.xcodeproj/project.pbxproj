@@ -1,0 +1,481 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1A6A1FDCAA37836C97D39CC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63BC4BAB7B647BC738808B43 /* Assets.xcassets */; };
+		7B4448BAB7645A75B0A50A66 /* RepLedgerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93756CB904465FBD5BE13F4 /* RepLedgerApp.swift */; };
+		BE8ADE3F70EB3D6AEDAB074A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7843DA50A30F873400B38AA4 /* ContentView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		20A4A6E35D6C40AE6A39C0EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2805705B5931F80148D11C5E /* RepLedger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RepLedger.entitlements; sourceTree = "<group>"; };
+		63BC4BAB7B647BC738808B43 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7843DA50A30F873400B38AA4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9AE8BB061795DDFCAD679378 /* RepLedger.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = RepLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B93756CB904465FBD5BE13F4 /* RepLedgerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepLedgerApp.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		169AC59B2B695FDE209D13EE /* Start */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Start;
+			sourceTree = "<group>";
+		};
+		1867FD164B9987299DF58D01 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		27CCD7128A0DAD897EFB0F37 /* Exercises */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Exercises;
+			sourceTree = "<group>";
+		};
+		3EC5DD375DEB691C37256ED5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9AE8BB061795DDFCAD679378 /* RepLedger.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4395B22C4EDA8CBF6A156717 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		447219F8869010A894CBC0B1 /* Workout */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Workout;
+			sourceTree = "<group>";
+		};
+		44ECF195F8FBD7DE0E14DD94 = {
+			isa = PBXGroup;
+			children = (
+				FC28F1CBA51F96D7A9C00F5A /* RepLedger */,
+				3EC5DD375DEB691C37256ED5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		485D09E8E537A4798663454F /* App */ = {
+			isa = PBXGroup;
+			children = (
+				7843DA50A30F873400B38AA4 /* ContentView.swift */,
+				B93756CB904465FBD5BE13F4 /* RepLedgerApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		4EB7992F2B80BB0322AE4ED3 /* SyncEngine */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SyncEngine;
+			sourceTree = "<group>";
+		};
+		57C4413B06B2A3A98C9478CE /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		611B0BCA77159DEE89D67680 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A910C2CF12DF9CC0442B649A /* Enums */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		6504D3D496D0C8F65C2F47D5 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		677C98FEE040E243E75B36EA /* History */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		69198541340F0F9BC3E01E02 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				63BC4BAB7B647BC738808B43 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		716217977F2E1227671D7766 /* Insights */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Insights;
+			sourceTree = "<group>";
+		};
+		A3FD79E62915C296D6E7BF54 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4EB7992F2B80BB0322AE4ED3 /* SyncEngine */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A910C2CF12DF9CC0442B649A /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		D3F9E09C644FBDF7E7C4EC67 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				D79752449DD531DAE704082C /* Coach */,
+				1867FD164B9987299DF58D01 /* Dashboard */,
+				27CCD7128A0DAD897EFB0F37 /* Exercises */,
+				677C98FEE040E243E75B36EA /* History */,
+				716217977F2E1227671D7766 /* Insights */,
+				4395B22C4EDA8CBF6A156717 /* Onboarding */,
+				57C4413B06B2A3A98C9478CE /* Settings */,
+				169AC59B2B695FDE209D13EE /* Start */,
+				447219F8869010A894CBC0B1 /* Workout */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		D79752449DD531DAE704082C /* Coach */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Coach;
+			sourceTree = "<group>";
+		};
+		DD18F1DFE19EB372FAB78C76 /* UIComponents */ = {
+			isa = PBXGroup;
+			children = (
+				E8F24B5EE9A34233076EAC29 /* Theme */,
+			);
+			path = UIComponents;
+			sourceTree = "<group>";
+		};
+		E8F24B5EE9A34233076EAC29 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		FC28F1CBA51F96D7A9C00F5A /* RepLedger */ = {
+			isa = PBXGroup;
+			children = (
+				485D09E8E537A4798663454F /* App */,
+				D3F9E09C644FBDF7E7C4EC67 /* Features */,
+				611B0BCA77159DEE89D67680 /* Models */,
+				69198541340F0F9BC3E01E02 /* Resources */,
+				A3FD79E62915C296D6E7BF54 /* Services */,
+				DD18F1DFE19EB372FAB78C76 /* UIComponents */,
+				6504D3D496D0C8F65C2F47D5 /* Utilities */,
+				20A4A6E35D6C40AE6A39C0EB /* Info.plist */,
+				2805705B5931F80148D11C5E /* RepLedger.entitlements */,
+			);
+			path = RepLedger;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2C7C82A5D0DD06086023C284 /* RepLedger */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 21148C2B83D49DD1F5AF0F6A /* Build configuration list for PBXNativeTarget "RepLedger" */;
+			buildPhases = (
+				849898C8B6BB5FD510A898DE /* Sources */,
+				A4580220C5821CABE01838B1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RepLedger;
+			packageProductDependencies = (
+			);
+			productName = RepLedger;
+			productReference = 9AE8BB061795DDFCAD679378 /* RepLedger.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9F4F0F168B5535BA5C9EB650 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					2C7C82A5D0DD06086023C284 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 8D7AC73083EC9932C8CE111A /* Build configuration list for PBXProject "RepLedger" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 44ECF195F8FBD7DE0E14DD94;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2C7C82A5D0DD06086023C284 /* RepLedger */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A4580220C5821CABE01838B1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A6A1FDCAA37836C97D39CC8 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		849898C8B6BB5FD510A898DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE8ADE3F70EB3D6AEDAB074A /* ContentView.swift in Sources */,
+				7B4448BAB7645A75B0A50A66 /* RepLedgerApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		34AD12CB29FD91DC983753FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RepLedger/RepLedger.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = RepLedger/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.repledger.app;
+				PRODUCT_NAME = RepLedger;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = "1,2,6";
+			};
+			name = Debug;
+		};
+		7B2B6296B88A4F5A2470BB49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		BA5EBDBE4FD9D5E8A789D980 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RepLedger/RepLedger.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = RepLedger/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.repledger.app;
+				PRODUCT_NAME = RepLedger;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = "1,2,6";
+			};
+			name = Release;
+		};
+		C47198513A0C9EA772520BE0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		21148C2B83D49DD1F5AF0F6A /* Build configuration list for PBXNativeTarget "RepLedger" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34AD12CB29FD91DC983753FB /* Debug */,
+				BA5EBDBE4FD9D5E8A789D980 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		8D7AC73083EC9932C8CE111A /* Build configuration list for PBXProject "RepLedger" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C47198513A0C9EA772520BE0 /* Debug */,
+				7B2B6296B88A4F5A2470BB49 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9F4F0F168B5535BA5C9EB650 /* Project object */;
+}
