@@ -7,7 +7,7 @@ struct OnboardingView: View {
 
     @State private var currentPage = 0
 
-    private let totalPages = 5
+    private let totalPages = 6
 
     var body: some View {
         let theme = themeManager.current
@@ -35,17 +35,20 @@ struct OnboardingView: View {
                     OnboardingWelcomePage(onContinue: nextPage)
                         .tag(0)
 
-                    OnboardingLiftingUnitsPage(onContinue: nextPage)
+                    OnboardingNamePage(onContinue: nextPage)
                         .tag(1)
 
-                    OnboardingBodyweightPage(onContinue: nextPage)
+                    OnboardingSessionsGoalPage(onContinue: nextPage)
                         .tag(2)
 
-                    OnboardingRestTimerPage(onContinue: nextPage)
+                    OnboardingLiftingUnitsPage(onContinue: nextPage)
                         .tag(3)
 
-                    OnboardingThemePage(onComplete: completeOnboarding)
+                    OnboardingBodyweightPage(onContinue: nextPage)
                         .tag(4)
+
+                    OnboardingRestTimerPage(onComplete: completeOnboarding)
+                        .tag(5)
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .animation(.easeInOut, value: currentPage)
@@ -107,6 +110,196 @@ struct OnboardingWelcomePage: View {
                 .frame(height: theme.spacing.xxl)
         }
         .padding(theme.spacing.lg)
+    }
+}
+
+// MARK: - Name Page
+
+struct OnboardingNamePage: View {
+    @Environment(ThemeManager.self) private var themeManager
+    @Environment(\.userSettings) private var settings
+
+    @State private var nameText: String = ""
+
+    let onContinue: () -> Void
+
+    var body: some View {
+        let theme = themeManager.current
+
+        VStack(spacing: theme.spacing.xl) {
+            Spacer()
+
+            // Header
+            VStack(spacing: theme.spacing.sm) {
+                Image(systemName: "person.fill")
+                    .font(.system(size: 48))
+                    .foregroundStyle(theme.colors.accent)
+
+                Text("What's your name?")
+                    .font(theme.typography.titleMedium)
+                    .foregroundStyle(theme.colors.text)
+
+                Text("We'll use this to personalize\nyour experience")
+                    .font(theme.typography.body)
+                    .foregroundStyle(theme.colors.textSecondary)
+                    .multilineTextAlignment(.center)
+            }
+
+            // Name input
+            VStack(spacing: theme.spacing.sm) {
+                TextField("Enter your name", text: $nameText)
+                    .font(theme.typography.bodyLarge)
+                    .foregroundStyle(theme.colors.text)
+                    .padding(theme.spacing.md)
+                    .background(theme.colors.surface)
+                    .clipShape(RoundedRectangle(cornerRadius: theme.cornerRadius.medium))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: theme.cornerRadius.medium)
+                            .stroke(theme.colors.border, lineWidth: 1)
+                    }
+                    .autocorrectionDisabled()
+                    .textInputAutocapitalization(.words)
+            }
+            .padding(.horizontal, theme.spacing.lg)
+
+            Spacer()
+
+            VStack(spacing: theme.spacing.md) {
+                RLButton("Continue", action: {
+                    settings.userName = nameText.trimmingCharacters(in: .whitespacesAndNewlines)
+                    onContinue()
+                })
+
+                Button("Skip for now") {
+                    onContinue()
+                }
+                .font(theme.typography.body)
+                .foregroundStyle(theme.colors.textSecondary)
+            }
+            .padding(.horizontal, theme.spacing.lg)
+
+            Spacer()
+                .frame(height: theme.spacing.xxl)
+        }
+        .padding(theme.spacing.lg)
+        .onAppear {
+            nameText = settings.userName
+        }
+    }
+}
+
+// MARK: - Sessions Goal Page
+
+struct OnboardingSessionsGoalPage: View {
+    @Environment(ThemeManager.self) private var themeManager
+    @Environment(\.userSettings) private var settings
+
+    let onContinue: () -> Void
+
+    private let goalOptions = [3, 4, 5, 6, 7]
+
+    var body: some View {
+        let theme = themeManager.current
+
+        VStack(spacing: theme.spacing.xl) {
+            Spacer()
+
+            // Header
+            VStack(spacing: theme.spacing.sm) {
+                Image(systemName: "calendar")
+                    .font(.system(size: 48))
+                    .foregroundStyle(theme.colors.accent)
+
+                Text("Weekly Goal")
+                    .font(theme.typography.titleMedium)
+                    .foregroundStyle(theme.colors.text)
+
+                Text("How many workouts do you\nwant to complete each week?")
+                    .font(theme.typography.body)
+                    .foregroundStyle(theme.colors.textSecondary)
+                    .multilineTextAlignment(.center)
+            }
+
+            // Options
+            VStack(spacing: theme.spacing.md) {
+                ForEach(goalOptions, id: \.self) { goal in
+                    SessionsGoalOptionButton(
+                        goal: goal,
+                        isSelected: settings.weeklySessionsGoal == goal
+                    ) {
+                        settings.weeklySessionsGoal = goal
+                    }
+                }
+            }
+            .padding(.horizontal, theme.spacing.lg)
+
+            Spacer()
+
+            RLButton("Continue", action: onContinue)
+                .padding(.horizontal, theme.spacing.lg)
+
+            Spacer()
+                .frame(height: theme.spacing.xxl)
+        }
+        .padding(theme.spacing.lg)
+    }
+}
+
+struct SessionsGoalOptionButton: View {
+    @Environment(ThemeManager.self) private var themeManager
+
+    let goal: Int
+    let isSelected: Bool
+    let action: () -> Void
+
+    private var subtitle: String {
+        switch goal {
+        case 3: return "Light training"
+        case 4: return "Recommended"
+        case 5: return "Active lifestyle"
+        case 6: return "Serious athlete"
+        case 7: return "Daily training"
+        default: return ""
+        }
+    }
+
+    var body: some View {
+        let theme = themeManager.current
+
+        Button(action: action) {
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("\(goal) workouts")
+                        .font(theme.typography.bodyLarge)
+                        .foregroundStyle(theme.colors.text)
+
+                    Text(subtitle)
+                        .font(theme.typography.caption)
+                        .foregroundStyle(theme.colors.textSecondary)
+                }
+
+                Spacer()
+
+                if isSelected {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.title2)
+                        .foregroundStyle(theme.colors.accent)
+                } else {
+                    Circle()
+                        .strokeBorder(theme.colors.border, lineWidth: 2)
+                        .frame(width: 24, height: 24)
+                }
+            }
+            .padding(theme.spacing.md)
+            .background(isSelected ? theme.colors.accent.opacity(0.1) : theme.colors.surface)
+            .clipShape(RoundedRectangle(cornerRadius: theme.cornerRadius.medium))
+            .overlay {
+                RoundedRectangle(cornerRadius: theme.cornerRadius.medium)
+                    .stroke(isSelected ? theme.colors.accent : theme.colors.border, lineWidth: 1)
+            }
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
 
@@ -227,13 +420,13 @@ struct OnboardingBodyweightPage: View {
     }
 }
 
-// MARK: - Rest Timer Page
+// MARK: - Rest Timer Page (Final Page)
 
 struct OnboardingRestTimerPage: View {
     @Environment(ThemeManager.self) private var themeManager
     @Environment(\.userSettings) private var settings
 
-    let onContinue: () -> Void
+    let onComplete: () -> Void
 
     var body: some View {
         let theme = themeManager.current
@@ -292,63 +485,6 @@ struct OnboardingRestTimerPage: View {
             .padding(theme.spacing.md)
             .background(theme.colors.surface)
             .clipShape(RoundedRectangle(cornerRadius: theme.cornerRadius.medium))
-            .padding(.horizontal, theme.spacing.lg)
-
-            Spacer()
-
-            RLButton("Continue", action: onContinue)
-                .padding(.horizontal, theme.spacing.lg)
-
-            Spacer()
-                .frame(height: theme.spacing.xxl)
-        }
-        .padding(theme.spacing.lg)
-    }
-}
-
-// MARK: - Theme Page
-
-struct OnboardingThemePage: View {
-    @Environment(ThemeManager.self) private var themeManager
-    @Environment(\.userSettings) private var settings
-
-    let onComplete: () -> Void
-
-    var body: some View {
-        let theme = themeManager.current
-
-        VStack(spacing: theme.spacing.xl) {
-            Spacer()
-
-            // Header
-            VStack(spacing: theme.spacing.sm) {
-                Image(systemName: "paintbrush.fill")
-                    .font(.system(size: 48))
-                    .foregroundStyle(theme.colors.accent)
-
-                Text("Choose Your Theme")
-                    .font(theme.typography.titleMedium)
-                    .foregroundStyle(theme.colors.text)
-
-                Text("Pick a look that suits\nyour style")
-                    .font(theme.typography.body)
-                    .foregroundStyle(theme.colors.textSecondary)
-                    .multilineTextAlignment(.center)
-            }
-
-            // Theme options
-            VStack(spacing: theme.spacing.md) {
-                ForEach(ThemeID.allCases) { themeId in
-                    let previewTheme = ThemeManager.theme(for: themeId)
-                    ThemePreviewCard(
-                        theme: previewTheme,
-                        isSelected: themeManager.currentID == themeId
-                    ) {
-                        themeManager.setTheme(themeId)
-                        settings.selectedTheme = themeId
-                    }
-                }
-            }
             .padding(.horizontal, theme.spacing.lg)
 
             Spacer()
@@ -426,7 +562,7 @@ struct TimerPresetButton: View {
         Button(action: action) {
             Text(formatDuration(seconds))
                 .font(theme.typography.bodyLarge)
-                .foregroundStyle(isSelected ? .white : theme.colors.text)
+                .foregroundStyle(isSelected ? theme.colors.textOnAccent : theme.colors.text)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, theme.spacing.md)
                 .background(isSelected ? theme.colors.accent : theme.colors.surface)
