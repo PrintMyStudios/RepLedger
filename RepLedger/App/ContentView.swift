@@ -1,12 +1,41 @@
 import SwiftUI
 import SwiftData
 
+// MARK: - Tab Bar Metrics (Single Source of Truth)
+
+/// Centralized metrics for the custom tab bar to ensure consistent insets across all screens.
+enum TabBarMetrics {
+    /// Height of the tab bar itself
+    static let barHeight: CGFloat = 60
+
+    /// Size of the floating center button
+    static let fabSize: CGFloat = 56
+
+    /// How far the FAB extends above the bar (negative offset)
+    static let fabOffset: CGFloat = 20
+
+    /// Extra clearance above the FAB for comfortable tapping
+    static let fabClearance: CGFloat = 8
+
+    /// Total height the tab bar occupies (bar + FAB overhang + clearance)
+    /// This is used by .safeAreaInset to inset content correctly
+    static var totalHeight: CGFloat {
+        // FAB extends (fabSize/2 - fabOffset) above bar top = 28 - 20 = 8pt
+        // Plus clearance = 8pt more
+        // Total above bar = 16pt
+        barHeight + fabClearance + (fabSize / 2 - fabOffset)
+    }
+}
+
 struct ContentView: View {
     @Environment(ThemeManager.self) private var themeManager
     @Environment(\.modelContext) private var modelContext
     @Environment(\.userSettings) private var settings
+    @Environment(\.purchaseManager) private var purchaseManager
 
     @State private var persistenceService: PersistenceService?
+    @State private var workoutManager = WorkoutManager()
+    @State private var showProUpsell = false
 
     var body: some View {
         let theme = themeManager.current
@@ -18,12 +47,29 @@ struct ContentView: View {
                 OnboardingView()
             }
         }
+        .environment(\.workoutManager, workoutManager)
         .preferredColorScheme(colorScheme(for: themeManager.currentID))
         .tint(theme.colors.accent)
         .onAppear {
             // Initialize persistence service and seed exercises
             persistenceService = PersistenceService(modelContext: modelContext)
             persistenceService?.seedExercisesIfNeeded()
+
+            // Configure workout manager with model context
+            workoutManager.configure(modelContext: modelContext)
+        }
+        .onChange(of: settings.completedWorkoutCount) { _, newValue in
+            // Trigger soft upsell when >= 3 workouts AND not shown before AND not Pro
+            if newValue >= 3 && !settings.hasShownProUpsell && !purchaseManager.isPro {
+                showProUpsell = true
+            }
+        }
+        .sheet(isPresented: $showProUpsell) {
+            ProUpsellSheet()
+                .presentationDetents([.medium])
+                .onDisappear {
+                    settings.hasShownProUpsell = true
+                }
         }
     }
 
@@ -39,40 +85,114 @@ struct ContentView: View {
 
 // MARK: - Main Tab View
 
+enum MainTab: Int, CaseIterable {
+    case dashboard
+    case history
+    case start
+    case exercises
+    case settings
+}
+
 struct MainTabView: View {
     @Environment(ThemeManager.self) private var themeManager
-    // TODO: Milestone 5 - Add isCoach check for Coach tab visibility
+    @Environment(\.purchaseManager) private var purchaseManager
+
+    @State private var selectedTab: MainTab = .dashboard
 
     var body: some View {
         let theme = themeManager.current
 
-        TabView {
-            DashboardView()
-                .tabItem {
-                    Label("Dashboard", systemImage: "house.fill")
-                }
-
-            HistoryView()
-                .tabItem {
-                    Label("History", systemImage: "clock.fill")
-                }
-
-            StartWorkoutView()
-                .tabItem {
-                    Label("Start", systemImage: "plus.circle.fill")
-                }
-
-            ExerciseLibraryView()
-                .tabItem {
-                    Label("Exercises", systemImage: "dumbbell.fill")
-                }
-
-            SettingsView()
-                .tabItem {
-                    Label("Settings", systemImage: "gearshape.fill")
-                }
+        // Tab content with safe area inset for custom tab bar
+        // This automatically insets all child ScrollViews and Lists
+        Group {
+            switch selectedTab {
+            case .dashboard:
+                DashboardView(selectedTab: $selectedTab)
+            case .history:
+                HistoryView()
+            case .start:
+                StartView()
+            case .exercises:
+                ExerciseLibraryView()
+            case .settings:
+                SettingsView()
+            }
         }
-        .tint(theme.colors.accent)
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            CustomTabBar(selectedTab: $selectedTab, theme: theme, isCoach: purchaseManager.isCoach)
+        }
+        .ignoresSafeArea(.keyboard)
+    }
+}
+
+// MARK: - Custom Tab Bar
+
+struct CustomTabBar: View {
+    @Binding var selectedTab: MainTab
+    let theme: any Theme
+    let isCoach: Bool
+
+    var body: some View {
+        VStack(spacing: 0) {
+            // Main bar content with floating button
+            ZStack {
+                // Bar background with tabs
+                HStack(spacing: 0) {
+                    // Left tabs
+                    tabButton(tab: .dashboard, icon: "house.fill", label: "Home")
+                    tabButton(tab: .history, icon: "clock.fill", label: "History")
+
+                    // Center spacer for floating button
+                    Spacer()
+                        .frame(width: TabBarMetrics.fabSize + 16)
+
+                    // Right tabs
+                    tabButton(tab: .exercises, icon: "dumbbell.fill", label: "Exercises")
+                    tabButton(tab: .settings, icon: "gearshape.fill", label: "Settings")
+                }
+                .frame(height: TabBarMetrics.barHeight)
+
+                // Floating center button
+                Button {
+                    selectedTab = .start
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(theme.colors.accent)
+                            .frame(width: TabBarMetrics.fabSize, height: TabBarMetrics.fabSize)
+                            .shadow(color: .black.opacity(0.25), radius: 8, y: 4)
+
+                        Image(systemName: "plus")
+                            .font(.system(size: 24, weight: .bold))
+                            .foregroundStyle(theme.colors.textOnAccent)
+                    }
+                }
+                .offset(y: -TabBarMetrics.fabOffset)
+            }
+        }
+        // Opaque background that extends into safe area (home indicator area)
+        .background(
+            theme.colors.surface
+                .shadow(color: .black.opacity(0.3), radius: 20, y: -5)
+                .ignoresSafeArea(edges: .bottom)
+        )
+    }
+
+    private func tabButton(tab: MainTab, icon: String, label: String) -> some View {
+        Button {
+            selectedTab = tab
+        } label: {
+            VStack(spacing: 4) {
+                Image(systemName: icon)
+                    .font(.system(size: 20))
+
+                Text(label)
+                    .font(.system(size: 10, weight: .medium))
+            }
+            .foregroundStyle(selectedTab == tab ? theme.colors.accent : theme.colors.textSecondary)
+            .frame(maxWidth: .infinity)
+        }
+        .buttonStyle(.plain)
     }
 }
 
@@ -80,91 +200,156 @@ struct MainTabView: View {
 
 struct DashboardView: View {
     @Environment(ThemeManager.self) private var themeManager
+    @Environment(\.userSettings) private var settings
+    @Environment(\.modelContext) private var modelContext
+
+    @Binding var selectedTab: MainTab
+
+    // Query all workouts for navigation destination lookup
+    @Query private var workouts: [Workout]
+
+    // MARK: - State
+    @State private var dashboardData: DashboardData?
+    @State private var isLoading = false
+    @State private var errorMessage: String?
+    @State private var metricsActor: MetricsActor?
+
+    // MARK: - Layout Constants
+    private enum Layout {
+        static let horizontalPadding: CGFloat = 20
+        static let cardSpacing: CGFloat = 16
+        static let smallCardSpacing: CGFloat = 12
+        static let ctaHeight: CGFloat = 52
+    }
+
+    /// Reload trigger: combine settings that affect display
+    private var reloadTrigger: String {
+        "\(settings.weeklySessionsGoal)-\(settings.liftingUnit.rawValue)"
+    }
 
     var body: some View {
         let theme = themeManager.current
 
         NavigationStack {
             ScrollView {
-                VStack(spacing: theme.spacing.lg) {
-                    // Quick stats
-                    RLCard {
-                        RLStatGrid {
-                            RLStatTile.workouts(0)
-                            RLStatTile.volume("0 kg")
+                VStack(spacing: Layout.cardSpacing) {
+                    // Start Workout CTA - navigates to Start tab
+                    startWorkoutButton(theme: theme)
+
+                    // Content based on loading/empty state
+                    if isLoading && dashboardData == nil {
+                        // First load: show loading placeholders
+                        loadingContent
+                    } else if let data = dashboardData {
+                        if !data.hasAnyWorkouts {
+                            // Empty state
+                            DashboardEmptyStateCard(onStartWorkout: { selectedTab = .start })
+                        } else {
+                            // Real data
+                            dataContent(data: data)
                         }
-                    }
-
-                    // Empty state
-                    RLEmptyState.noWorkouts {
-                        // TODO: Start workout
+                    } else {
+                        // Still loading but no data yet
+                        loadingContent
                     }
                 }
-                .padding(theme.spacing.md)
+                .padding(.horizontal, Layout.horizontalPadding)
+                .padding(.top, Layout.cardSpacing)
             }
             .background(theme.colors.background)
-            .navigationTitle("Dashboard")
-        }
-    }
-}
-
-struct HistoryView: View {
-    @Environment(ThemeManager.self) private var themeManager
-
-    var body: some View {
-        let theme = themeManager.current
-
-        NavigationStack {
-            RLEmptyState.noWorkouts {
-                // TODO: Navigate to start workout
+            .toolbar(.hidden, for: .navigationBar)
+            .safeAreaInset(edge: .top, spacing: 0) {
+                DashboardHeaderView(userName: settings.userName)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(theme.colors.background)
-            .navigationTitle("History")
+            .navigationDestination(for: UUID.self) { workoutId in
+                // Find workout by ID and navigate to detail
+                if let workout = workouts.first(where: { $0.id == workoutId }) {
+                    WorkoutDetailView(workout: workout)
+                        .toolbar(.visible, for: .navigationBar)
+                }
+            }
+        }
+        .task(id: reloadTrigger) {
+            await load()
+        }
+        .refreshable {
+            await load()
         }
     }
-}
 
-struct StartWorkoutView: View {
-    @Environment(ThemeManager.self) private var themeManager
+    // MARK: - Data Loading
 
-    var body: some View {
-        let theme = themeManager.current
+    private func load() async {
+        if metricsActor == nil {
+            metricsActor = MetricsActor(modelContainer: modelContext.container)
+        }
+        guard let actor = metricsActor else { return }
 
-        NavigationStack {
-            VStack(spacing: theme.spacing.lg) {
-                Spacer()
+        // Don't wipe existing data during refresh
+        if dashboardData == nil {
+            isLoading = true
+        }
 
-                Image(systemName: "plus.circle.fill")
-                    .font(.system(size: 64))
-                    .foregroundStyle(theme.colors.accent)
+        let data = await actor.getDashboardData(sessionsGoal: settings.weeklySessionsGoal)
+        dashboardData = data
+        errorMessage = nil
+        isLoading = false
+    }
 
+    // MARK: - Content States
+
+    @ViewBuilder
+    private var loadingContent: some View {
+        DashboardStatsCard(stats: nil, weeklyVolumeByDay: [], isLoading: true)
+        LastWorkoutCard(workout: nil, isLoading: true)
+        HStack(spacing: Layout.smallCardSpacing) {
+            RecoveryCard(recovery: [], isLoading: true)
+            LatestPRCard(latestPR: nil, isLoading: true)
+        }
+    }
+
+    @ViewBuilder
+    private func dataContent(data: DashboardData) -> some View {
+        DashboardStatsCard(
+            stats: data.stats,
+            weeklyVolumeByDay: data.weeklyVolumeByDay,
+            isLoading: isLoading
+        )
+
+        if let lastWorkout = data.lastWorkout {
+            NavigationLink(value: lastWorkout.id) {
+                LastWorkoutCard(workout: lastWorkout, isLoading: isLoading)
+            }
+            .buttonStyle(.plain)
+        }
+
+        HStack(spacing: Layout.smallCardSpacing) {
+            RecoveryCard(recovery: data.recovery, isLoading: isLoading)
+            LatestPRCard(latestPR: data.latestPR, isLoading: isLoading)
+        }
+    }
+
+    // MARK: - Buttons
+
+    @ViewBuilder
+    private func startWorkoutButton(theme: any Theme) -> some View {
+        Button {
+            selectedTab = .start
+        } label: {
+            HStack(spacing: 8) {
+                Image(systemName: "plus")
+                    .font(.system(size: 18, weight: .bold))
                 Text("Start Workout")
-                    .font(theme.typography.titleMedium)
-                    .foregroundStyle(theme.colors.text)
-
-                Text("Begin an empty workout or\nchoose a template")
-                    .font(theme.typography.body)
-                    .foregroundStyle(theme.colors.textSecondary)
-                    .multilineTextAlignment(.center)
-
-                VStack(spacing: theme.spacing.md) {
-                    RLButton("Quick Start", icon: "bolt.fill") {
-                        // TODO: Milestone 2 - Start empty workout
-                    }
-
-                    RLButton("From Template", icon: "doc.on.doc", style: .secondary) {
-                        // TODO: Milestone 2 - Show template picker
-                    }
-                }
-                .padding(.horizontal, theme.spacing.xl)
-
-                Spacer()
+                    .font(.system(size: 16, weight: .bold))
             }
+            .foregroundStyle(theme.colors.textOnAccent)
             .frame(maxWidth: .infinity)
-            .background(theme.colors.background)
-            .navigationTitle("Start")
+            .frame(height: Layout.ctaHeight)
+            .background(theme.colors.accent)
+            .clipShape(RoundedRectangle(cornerRadius: theme.cornerRadius.medium))
+            .rlShadow(theme.shadows.neonGlow)
         }
+        .buttonStyle(.plain)
     }
 }
 
@@ -195,7 +380,9 @@ struct ExerciseLibraryView: View {
                             if !groupExercises.isEmpty {
                                 Section {
                                     ForEach(groupExercises) { exercise in
-                                        ExerciseRow(exercise: exercise)
+                                        NavigationLink(value: exercise) {
+                                            ExerciseRow(exercise: exercise)
+                                        }
                                     }
                                 } header: {
                                     Text(group.displayName)
@@ -210,8 +397,15 @@ struct ExerciseLibraryView: View {
                 }
             }
             .background(theme.colors.background)
-            .navigationTitle("Exercises")
+            .toolbar(.hidden, for: .navigationBar)
+            .safeAreaInset(edge: .top, spacing: 0) {
+                AppTabHeader(title: "Exercises")
+            }
             .searchable(text: $searchText, prompt: "Search exercises")
+            .navigationDestination(for: Exercise.self) { exercise in
+                ExerciseDetailView(exercise: exercise)
+                    .toolbar(.visible, for: .navigationBar)
+            }
         }
     }
 
@@ -258,12 +452,34 @@ struct ExerciseRow: View {
 struct SettingsView: View {
     @Environment(ThemeManager.self) private var themeManager
     @Environment(\.userSettings) private var settings
+    @Environment(\.purchaseManager) private var purchaseManager
+
+    @State private var showProPaywall = false
+    @State private var isRestoring = false
 
     var body: some View {
         let theme = themeManager.current
 
         NavigationStack {
             List {
+                // Templates section
+                Section("Workout") {
+                    NavigationLink {
+                        TemplateListView()
+                    } label: {
+                        Label("My Templates", systemImage: "doc.text.fill")
+                    }
+
+                    Picker("Weekly Goal", selection: Binding(
+                        get: { settings.weeklySessionsGoal },
+                        set: { settings.weeklySessionsGoal = $0 }
+                    )) {
+                        ForEach(3...7, id: \.self) { goal in
+                            Text("\(goal) workouts").tag(goal)
+                        }
+                    }
+                }
+
                 // Units section
                 Section("Units") {
                     Picker("Lifting Weight", selection: Binding(
@@ -281,21 +497,6 @@ struct SettingsView: View {
                     )) {
                         ForEach(BodyweightUnit.allCases) { unit in
                             Text(unit.displayName).tag(unit)
-                        }
-                    }
-                }
-
-                // Theme section
-                Section("Appearance") {
-                    Picker("Theme", selection: Binding(
-                        get: { themeManager.currentID },
-                        set: {
-                            themeManager.setTheme($0)
-                            settings.selectedTheme = $0
-                        }
-                    )) {
-                        ForEach(ThemeID.allCases) { themeId in
-                            Text(themeId.displayName).tag(themeId)
                         }
                     }
                 }
@@ -319,22 +520,59 @@ struct SettingsView: View {
 
                 // Pro section
                 Section("Pro") {
-                    Label("Export Data", systemImage: "square.and.arrow.up")
-                        .foregroundStyle(theme.colors.textSecondary)
-                    // TODO: Milestone 4 - Pro paywall
+                    Button {
+                        if purchaseManager.isPro {
+                            // TODO: Implement export functionality
+                        } else {
+                            showProPaywall = true
+                        }
+                    } label: {
+                        HStack {
+                            Label("Export Data", systemImage: "square.and.arrow.up")
+                            Spacer()
+                            if !purchaseManager.isPro {
+                                RLPill("PRO", style: .filled, size: .small)
+                            }
+                        }
+                    }
+                    .foregroundStyle(theme.colors.text)
 
-                    Label("Backup & Sync", systemImage: "icloud.fill")
-                        .foregroundStyle(theme.colors.textSecondary)
-                    // TODO: Milestone 4 - Pro paywall
+                    Button {
+                        if purchaseManager.isPro {
+                            // TODO: Implement backup settings
+                        } else {
+                            showProPaywall = true
+                        }
+                    } label: {
+                        HStack {
+                            Label("Backup & Sync", systemImage: "icloud.fill")
+                            Spacer()
+                            if !purchaseManager.isPro {
+                                RLPill("PRO", style: .filled, size: .small)
+                            }
+                        }
+                    }
+                    .foregroundStyle(theme.colors.text)
                 }
 
                 // Account section
                 Section("Account") {
                     Button {
-                        // TODO: Milestone 4 - Restore purchases
+                        Task {
+                            isRestoring = true
+                            await purchaseManager.restorePurchases()
+                            isRestoring = false
+                        }
                     } label: {
-                        Label("Restore Purchases", systemImage: "arrow.clockwise")
+                        HStack {
+                            Label("Restore Purchases", systemImage: "arrow.clockwise")
+                            if isRestoring {
+                                Spacer()
+                                ProgressView()
+                            }
+                        }
                     }
+                    .disabled(isRestoring)
                 }
 
                 // About section
@@ -350,8 +588,14 @@ struct SettingsView: View {
             .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)
             .background(theme.colors.background)
-            .navigationTitle("Settings")
+            .toolbar(.hidden, for: .navigationBar)
+            .safeAreaInset(edge: .top, spacing: 0) {
+                AppTabHeader(title: "Settings")
+            }
             .tint(theme.colors.accent)
+            .sheet(isPresented: $showProPaywall) {
+                ProPaywallView()
+            }
         }
     }
 

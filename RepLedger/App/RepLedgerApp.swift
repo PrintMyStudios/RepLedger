@@ -6,7 +6,8 @@ struct RepLedgerApp: App {
     // Theme manager for global theme state
     @State private var themeManager = ThemeManager()
 
-    // TODO: Milestone 4 - Initialize PurchaseManager and EntitlementsService
+    // Purchase manager for StoreKit 2 purchases and entitlements
+    @State private var purchaseManager = PurchaseManager()
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -29,6 +30,10 @@ struct RepLedgerApp: App {
         WindowGroup {
             ContentView()
                 .environment(themeManager)
+                .environment(\.purchaseManager, purchaseManager)
+                .task {
+                    await purchaseManager.start()
+                }
         }
         .modelContainer(sharedModelContainer)
     }
