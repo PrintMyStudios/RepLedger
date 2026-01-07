@@ -25,10 +25,12 @@ final class ThemeManager {
     // MARK: - Initialization
 
     init() {
-        // Load persisted theme or default to Obsidian
-        let savedThemeID = UserDefaults.standard.string(forKey: "selectedTheme") ?? ThemeID.obsidian.rawValue
-        let themeID = ThemeID(rawValue: savedThemeID) ?? .obsidian
-        self.current = Self.theme(for: themeID)
+        // v1: Always use ObsidianTheme (neon green) - theme picker removed
+        // Force ObsidianTheme regardless of any persisted setting
+        self.current = ObsidianTheme()
+
+        // Clear any old theme preference to ensure clean state
+        UserDefaults.standard.set(ThemeID.obsidian.rawValue, forKey: "selectedTheme")
     }
 
     // MARK: - Theme Selection
@@ -46,19 +48,6 @@ final class ThemeManager {
         case .studio: return StudioTheme()
         case .forge: return ForgeTheme()
         }
-    }
-}
-
-// MARK: - Environment Key
-
-private struct ThemeManagerKey: EnvironmentKey {
-    static let defaultValue = ThemeManager()
-}
-
-extension EnvironmentValues {
-    var themeManager: ThemeManager {
-        get { self[ThemeManagerKey.self] }
-        set { self[ThemeManagerKey.self] = newValue }
     }
 }
 
@@ -111,18 +100,18 @@ struct ThemePreviewCard: View {
                 VStack(spacing: 4) {
                     Text(theme.name)
                         .font(.headline)
-                        .foregroundStyle(isSelected ? theme.colors.accent : .primary)
+                        .foregroundStyle(isSelected ? theme.colors.accent : theme.colors.text)
 
                     Text(theme.id.description)
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(theme.colors.textSecondary)
                         .multilineTextAlignment(.center)
                 }
             }
             .padding()
             .background {
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(isSelected ? theme.colors.accent : Color.gray.opacity(0.3), lineWidth: isSelected ? 2 : 1)
+                    .stroke(isSelected ? theme.colors.accent : theme.colors.border.opacity(0.5), lineWidth: isSelected ? 2 : 1)
             }
         }
         .buttonStyle(.plain)

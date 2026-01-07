@@ -23,6 +23,9 @@ protocol Theme {
 
     // MARK: - Shadows
     var shadows: ThemeShadows { get }
+
+    // MARK: - Header
+    var header: ThemeHeaderTokens { get }
 }
 
 // MARK: - Theme Identifier
@@ -57,15 +60,20 @@ struct ThemeColors {
     let background: Color
     let surface: Color
     let elevated: Color
+    let inputBackground: Color  // Darker background for input fields
+    let surfaceDeep: Color      // Deepest background layer (for previews, modals)
 
     // Text
     let text: Color
     let textSecondary: Color
     let textTertiary: Color
+    let textOnAccent: Color     // Contrasting text for accent backgrounds
 
     // Accent & Semantic
     let accent: Color
     let accentSecondary: Color
+    let accentGold: Color      // For PRs, achievements
+    let accentOrange: Color    // For warnings, partial progress
     let success: Color
     let warning: Color
     let error: Color
@@ -76,6 +84,7 @@ struct ThemeColors {
 
     // Special
     let overlay: Color
+    let completedSetTint: Color // Green-tinted background for completed sets
 }
 
 // MARK: - Theme Typography
@@ -172,6 +181,8 @@ struct ThemeShadows {
     let subtle: RLShadow
     let medium: RLShadow
     let prominent: RLShadow
+    let neonGlow: RLShadow     // Neon glow effect for CTAs
+    let card: RLShadow         // Card shadow
 }
 
 struct RLShadow {
@@ -182,19 +193,23 @@ struct RLShadow {
 }
 
 extension ThemeShadows {
-    static func forDarkTheme() -> ThemeShadows {
+    static func forDarkTheme(accentColor: Color = Color(hex: "00FF66")) -> ThemeShadows {
         ThemeShadows(
             subtle: RLShadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2),
             medium: RLShadow(color: .black.opacity(0.4), radius: 8, x: 0, y: 4),
-            prominent: RLShadow(color: .black.opacity(0.5), radius: 16, x: 0, y: 8)
+            prominent: RLShadow(color: .black.opacity(0.5), radius: 16, x: 0, y: 8),
+            neonGlow: RLShadow(color: accentColor.opacity(0.4), radius: 15, x: 0, y: 0),
+            card: RLShadow(color: .black.opacity(0.25), radius: 20, x: 0, y: 4)
         )
     }
 
-    static func forLightTheme() -> ThemeShadows {
+    static func forLightTheme(accentColor: Color = Color(hex: "00FF66")) -> ThemeShadows {
         ThemeShadows(
             subtle: RLShadow(color: .black.opacity(0.08), radius: 4, x: 0, y: 2),
             medium: RLShadow(color: .black.opacity(0.12), radius: 8, x: 0, y: 4),
-            prominent: RLShadow(color: .black.opacity(0.16), radius: 16, x: 0, y: 8)
+            prominent: RLShadow(color: .black.opacity(0.16), radius: 16, x: 0, y: 8),
+            neonGlow: RLShadow(color: accentColor.opacity(0.3), radius: 12, x: 0, y: 0),
+            card: RLShadow(color: .black.opacity(0.1), radius: 16, x: 0, y: 4)
         )
     }
 }
@@ -204,5 +219,49 @@ extension ThemeShadows {
 extension View {
     func rlShadow(_ shadow: RLShadow) -> some View {
         self.shadow(color: shadow.color, radius: shadow.radius, x: shadow.x, y: shadow.y)
+    }
+}
+
+// MARK: - Theme Header Tokens
+
+/// Centralized header styling tokens for consistent headers across all tabs.
+/// All header components should use these tokens instead of hardcoded values.
+struct ThemeHeaderTokens {
+    // Typography
+    let pageTitleFont: Font          // 28pt bold - "History", "Start"
+    let greetingFont: Font           // 13pt semibold uppercase - "GOOD EVENING, ALEX"
+    let dashboardMessageFont: Font   // 22pt bold - "Ready to crush it?"
+    let subtitleFont: Font           // 14pt regular - "42 workouts completed"
+
+    // Button dimensions
+    let buttonVisualSize: CGFloat    // 40 (visual size)
+    let buttonTapSize: CGFloat       // 44 (tap target, Apple minimum)
+    let iconSize: CGFloat            // 16
+    let iconWeight: Font.Weight      // .semibold
+
+    // Pill container
+    let pillHeight: CGFloat          // 44
+    let pillPadding: CGFloat         // 6 (horizontal padding inside pill)
+    let pillButtonSpacing: CGFloat   // 0 (icons touch divider)
+    let pillDividerHeight: CGFloat   // 24
+}
+
+extension ThemeHeaderTokens {
+    /// Default header tokens used across all themes
+    static var `default`: ThemeHeaderTokens {
+        ThemeHeaderTokens(
+            pageTitleFont: .system(size: 28, weight: .bold),
+            greetingFont: .system(size: 13, weight: .semibold),
+            dashboardMessageFont: .system(size: 22, weight: .bold),
+            subtitleFont: .system(size: 14, weight: .regular),
+            buttonVisualSize: 40,
+            buttonTapSize: 44,
+            iconSize: 16,
+            iconWeight: .semibold,
+            pillHeight: 44,
+            pillPadding: 6,
+            pillButtonSpacing: 0,
+            pillDividerHeight: 24
+        )
     }
 }
