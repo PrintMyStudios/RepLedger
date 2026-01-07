@@ -28,7 +28,7 @@ final class SetEntry {
     /// Timestamp when this set was created/completed
     var createdAt: Date
 
-    /// Parent workout exercise
+    /// Parent workout exercise (inverse of WorkoutExercise.sets)
     var workoutExercise: WorkoutExercise?
 
     // MARK: - Computed Properties
@@ -87,6 +87,21 @@ final class SetEntry {
     /// Toggle completion status
     func toggleComplete() {
         isCompleted.toggle()
+    }
+
+    /// Set RPE with validation (clamped to 1-10 range)
+    func setRPE(_ value: Double?) {
+        guard let value = value else {
+            rpe = nil
+            return
+        }
+        rpe = min(max(value, 1), 10)
+    }
+
+    /// Whether the current RPE value is valid (1-10)
+    var isValidRPE: Bool {
+        guard let rpe = rpe else { return true }  // nil is valid (not set)
+        return rpe >= 1 && rpe <= 10
     }
 
     /// Formatted weight string based on unit preference

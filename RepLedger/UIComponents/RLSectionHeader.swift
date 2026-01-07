@@ -57,6 +57,7 @@ struct RLSectionHeader: View {
                     }
                     .foregroundStyle(theme.colors.accent)
                 }
+                .buttonStyle(.plain)
                 .accessibilityLabel(actionLabel ?? "Action")
             }
         }
@@ -123,6 +124,6 @@ extension RLSectionHeader {
             actionIcon: "line.3.horizontal.decrease"
         ) { }
     }
-    .background(Color(hex: "0A0A0C"))
+    .background(ObsidianTheme().colors.surfaceDeep)
     .environment(ThemeManager())
 }

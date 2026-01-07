@@ -99,9 +99,8 @@ struct RLButton: View {
             }
         }
         .disabled(isDisabled || isLoading)
-        .opacity(isDisabled ? 0.5 : 1.0)
-        .accessibilityLabel(title)
-        .accessibilityHint(isLoading ? "Loading" : "")
+        .opacity((isDisabled || isLoading) ? 0.6 : 1.0)
+        .accessibilityLabel(isLoading ? "\(title), loading" : title)
         .accessibilityAddTraits(.isButton)
     }
 
@@ -121,13 +120,13 @@ struct RLButton: View {
     private func foregroundColor(for theme: any Theme) -> Color {
         switch style {
         case .primary:
-            return .white
+            return theme.colors.textOnAccent
         case .secondary:
             return theme.colors.accent
         case .tertiary:
             return theme.colors.accent
         case .destructive:
-            return .white
+            return theme.colors.textOnAccent
         }
     }
 }
@@ -189,6 +188,6 @@ struct RLIconButton: View {
         }
     }
     .padding()
-    .background(Color(hex: "0A0A0C"))
+    .background(ObsidianTheme().colors.surfaceDeep)
     .environment(ThemeManager())
 }

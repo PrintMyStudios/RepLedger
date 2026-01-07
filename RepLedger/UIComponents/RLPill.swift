@@ -29,7 +29,7 @@ enum RLPillColor {
     func foregroundColor(for theme: any Theme, style: RLPillStyle) -> Color {
         switch style {
         case .filled:
-            return .white
+            return theme.colors.textOnAccent
         case .outlined, .subtle:
             return solidColor(for: theme)
         }
@@ -185,6 +185,6 @@ extension RLPill {
         }
     }
     .padding()
-    .background(Color(hex: "0A0A0C"))
+    .background(ObsidianTheme().colors.surfaceDeep)
     .environment(ThemeManager())
 }

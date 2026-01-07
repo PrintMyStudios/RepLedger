@@ -85,6 +85,6 @@ private struct FlatCard<Content: View>: View {
         }
     }
     .padding()
-    .background(Color(hex: "0A0A0C"))
+    .background(ObsidianTheme().colors.surfaceDeep)
     .environment(ThemeManager())
 }

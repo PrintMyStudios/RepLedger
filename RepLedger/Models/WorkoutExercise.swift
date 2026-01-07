@@ -17,23 +17,23 @@ final class WorkoutExercise {
     /// Optional notes for this exercise in this workout
     var notes: String
 
-    /// Parent workout
+    /// Parent workout (inverse of Workout.exercises)
     var workout: Workout?
 
     /// Sets performed for this exercise
     @Relationship(deleteRule: .cascade, inverse: \SetEntry.workoutExercise)
-    var sets: [SetEntry]?
+    var sets: [SetEntry] = []
 
     // MARK: - Computed Properties
 
     /// All sets in order
     var orderedSets: [SetEntry] {
-        sets?.sorted { $0.orderIndex < $1.orderIndex } ?? []
+        sets.sorted { $0.orderIndex < $1.orderIndex }
     }
 
     /// Number of completed sets
     var completedSetCount: Int {
-        sets?.filter { $0.isCompleted }.count ?? 0
+        sets.filter { $0.isCompleted }.count
     }
 
     /// Total volume (weight × reps) for this exercise
@@ -65,18 +65,21 @@ final class WorkoutExercise {
         self.exerciseId = exerciseId
         self.orderIndex = orderIndex
         self.notes = notes
-        self.sets = []
     }
 
     // MARK: - Helpers
 
     /// Add a new set to this exercise
     func addSet(_ set: SetEntry) {
-        if sets == nil {
-            sets = []
+        set.orderIndex = sets.count
+        sets.append(set)
+    }
+
+    /// Reindex all sets to ensure contiguous ordering (call after deletions/reorders)
+    func reindexSets() {
+        for (index, set) in orderedSets.enumerated() {
+            set.orderIndex = index
         }
-        set.orderIndex = sets!.count
-        sets!.append(set)
     }
 
     /// Duplicate the last set

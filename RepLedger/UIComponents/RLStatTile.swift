@@ -203,7 +203,7 @@ extension RLStatTile {
             RLStatTile(value: "3", label: "sets", size: .compact)
         }
         .padding()
-        .background(Color(hex: "141416"))
+        .background(ObsidianTheme().colors.surface)
         .clipShape(RoundedRectangle(cornerRadius: 12))
 
         // Large featured
@@ -216,6 +216,6 @@ extension RLStatTile {
         )
     }
     .padding()
-    .background(Color(hex: "0A0A0C"))
+    .background(ObsidianTheme().colors.surfaceDeep)
     .environment(ThemeManager())
 }

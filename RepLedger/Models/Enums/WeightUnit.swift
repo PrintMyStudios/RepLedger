@@ -72,9 +72,15 @@ enum BodyweightUnit: String, Codable, CaseIterable, Identifiable {
             return String(format: "%.1f lb", lbValue)
         case .stoneLb:
             let totalLb = kgValue * WeightUnit.lb.fromKgFactor
-            let stone = Int(totalLb / 14)
+            var stone = Int(totalLb / 14)
             let remainingLb = totalLb.truncatingRemainder(dividingBy: 14)
-            return "\(stone) st \(Int(remainingLb.rounded())) lb"
+            var pounds = Int(remainingLb.rounded())
+            // Handle edge case: if rounded pounds == 14, carry to next stone
+            if pounds >= 14 {
+                stone += 1
+                pounds = 0
+            }
+            return "\(stone) st \(pounds) lb"
         }
     }
 }

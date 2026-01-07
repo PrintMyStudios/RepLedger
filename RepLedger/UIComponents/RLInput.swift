@@ -63,11 +63,14 @@ struct RLInput: View {
                     .keyboardType(type.keyboardType)
                     .font(theme.typography.body)
                     .foregroundStyle(theme.colors.text)
+                    .accessibilityLabel(label)
+                    .accessibilityValue(text.isEmpty ? placeholder : text)
 
                 if let suffix = suffix {
                     Text(suffix)
                         .font(theme.typography.bodySmall)
                         .foregroundStyle(theme.colors.textSecondary)
+                        .accessibilityHidden(true)
                 }
             }
             .padding(.horizontal, theme.spacing.md)
@@ -87,16 +90,14 @@ struct RLInput: View {
                 Text(errorMessage)
                     .font(theme.typography.captionSmall)
                     .foregroundStyle(theme.colors.error)
+                    .accessibilityLabel("Error: \(errorMessage)")
             } else if let helpText = helpText {
                 Text(helpText)
                     .font(theme.typography.captionSmall)
                     .foregroundStyle(theme.colors.textTertiary)
+                    .accessibilityHidden(true)
             }
         }
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel(label)
-        .accessibilityValue(text)
-        .accessibilityHint(helpText ?? "")
     }
 }
 
@@ -135,7 +136,7 @@ struct RLNumericInput: View {
             HStack {
                 TextField(placeholder, text: $textValue)
                     .keyboardType(.decimalPad)
-                    .font(.system(size: 18, weight: .medium, design: .rounded))
+                    .font(theme.typography.bodyLarge)
                     .foregroundStyle(theme.colors.text)
                     .onChange(of: textValue) { _, newValue in
                         // Allow empty string
@@ -148,16 +149,26 @@ struct RLNumericInput: View {
                             value = parsed
                         }
                     }
+                    .onChange(of: value) { _, newValue in
+                        // Sync textValue when value changes externally
+                        let newText = newValue.map { formatNumber($0) } ?? ""
+                        if newText != textValue {
+                            textValue = newText
+                        }
+                    }
                     .onAppear {
                         if let value = value {
                             textValue = formatNumber(value)
                         }
                     }
+                    .accessibilityLabel(label)
+                    .accessibilityValue(textValue.isEmpty ? placeholder : textValue)
 
                 if let suffix = suffix {
                     Text(suffix)
                         .font(theme.typography.bodySmall)
                         .foregroundStyle(theme.colors.textSecondary)
+                        .accessibilityHidden(true)
                 }
             }
             .padding(.horizontal, theme.spacing.md)
@@ -213,6 +224,6 @@ struct RLNumericInput: View {
         )
     }
     .padding()
-    .background(Color(hex: "0A0A0C"))
+    .background(ObsidianTheme().colors.surfaceDeep)
     .environment(ThemeManager())
 }
