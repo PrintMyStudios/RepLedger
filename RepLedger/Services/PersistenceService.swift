@@ -6,6 +6,8 @@ import SwiftData
 final class PersistenceService {
     private let modelContext: ModelContext
 
+    private static let hasSeededExercisesKey = "hasSeededExercises"
+
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
     }
@@ -14,19 +16,9 @@ final class PersistenceService {
 
     /// Seeds the exercise library on first launch
     func seedExercisesIfNeeded() {
-        // Check if already seeded
-        let descriptor = FetchDescriptor<Exercise>(
-            predicate: #Predicate { !$0.isCustom }
-        )
-
-        do {
-            let count = try modelContext.fetchCount(descriptor)
-            if count > 0 {
-                // Already seeded
-                return
-            }
-        } catch {
-            print("Error checking exercise count: \(error)")
+        // Use UserDefaults to track if we've seeded (more reliable than counting)
+        if UserDefaults.standard.bool(forKey: Self.hasSeededExercisesKey) {
+            return
         }
 
         // Seed exercises
@@ -37,6 +29,7 @@ final class PersistenceService {
 
         do {
             try modelContext.save()
+            UserDefaults.standard.set(true, forKey: Self.hasSeededExercisesKey)
             print("Seeded \(exercises.count) exercises")
         } catch {
             print("Error seeding exercises: \(error)")
@@ -214,7 +207,35 @@ final class PersistenceService {
         )
         let workouts = try modelContext.fetch(descriptor)
         return workouts.filter { workout in
-            workout.exercises?.contains { $0.exerciseId == exerciseId } ?? false
+            workout.exercises.contains { $0.exerciseId == exerciseId }
         }
+    }
+
+    // MARK: - Template Creation
+
+    /// Create a new template from a completed workout's exercises
+    /// - Parameters:
+    ///   - workout: The workout to extract exercises from
+    ///   - name: The name for the new template
+    /// - Returns: The created template
+    /// - Throws: If save fails
+    func createTemplateFromWorkout(_ workout: Workout, name: String) throws -> Template {
+        let exerciseIds = workout.orderedExercises.map { $0.exerciseId }
+        let template = Template(name: name, orderedExerciseIds: exerciseIds)
+        modelContext.insert(template)
+        try modelContext.save()
+        return template
+    }
+
+    // MARK: - Delete Helpers
+
+    /// Delete a workout and all its related data.
+    /// NOTE: SwiftData relationships are configured with .cascade deleteRule:
+    ///   - Workout → WorkoutExercise (cascade)
+    ///   - WorkoutExercise → SetEntry (cascade)
+    /// If cascade ever fails, explicitly delete children first.
+    func deleteWorkout(_ workout: Workout) throws {
+        modelContext.delete(workout)
+        try modelContext.save()
     }
 }
