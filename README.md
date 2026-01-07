@@ -13,8 +13,8 @@ RepLedger is a **consumer-first** lifting log with an optional **Coach** add‑o
 | Milestone | Status |
 |-----------|--------|
 | 1. Foundation | ✅ Complete |
-| 2. Logging MVP | Not started |
-| 3. History + Exercise detail | Not started |
+| 2. Logging MVP | ✅ Complete |
+| 3. History + Exercise detail | ✅ Complete |
 | 4. Pro polish + Paywalls | Not started |
 | 5. Coach skeleton | Not started |
 | 6. Tests + stability | Not started |
@@ -122,7 +122,8 @@ RepLedger/
 │       └── WeightUnit.swift     # kg/lb + bodyweight stone+lb
 ├── Services/
 │   ├── PersistenceService.swift # Exercise seeding, fetch helpers
-│   └── UserSettings.swift       # @Observable settings wrapper
+│   ├── UserSettings.swift       # @Observable settings wrapper
+│   └── WorkoutManager.swift     # Active workout state + rest timer
 ├── UIComponents/
 │   ├── Theme/
 │   │   ├── Theme.swift          # Protocol + design tokens
@@ -139,10 +140,20 @@ RepLedger/
 │   └── RLEmptyState.swift
 ├── Features/
 │   ├── Onboarding/
-│   │   └── OnboardingView.swift # 5-screen onboarding
+│   │   └── OnboardingView.swift     # 5-screen onboarding
 │   ├── Dashboard/
 │   ├── Start/
+│   │   └── TemplatePickerView.swift # Template selection sheet
+│   ├── Templates/
+│   │   ├── TemplateListView.swift   # Templates list with CRUD
+│   │   ├── TemplateEditorView.swift # Create/edit templates
+│   │   └── TemplateRowView.swift    # Template row component
 │   ├── Workout/
+│   │   ├── WorkoutEditorView.swift  # Main workout logging screen
+│   │   ├── ExerciseCardView.swift   # Exercise card with sets
+│   │   ├── SetRowView.swift         # Weight/reps inputs
+│   │   ├── ExercisePickerView.swift # Add exercise modal
+│   │   └── RestTimerView.swift      # Floating timer overlay
 │   ├── History/
 │   ├── Exercises/
 │   ├── Insights/
@@ -179,6 +190,7 @@ All screens use reusable components (`RLCard`, `RLButton`, etc.) so theme switch
   - `PersistenceService` - Data access, exercise seeding
   - `UserSettings` - Preferences (@Observable)
   - `ThemeManager` - Theme state (@Observable)
+  - `WorkoutManager` - Active workout state, rest timer (@Observable)
   - `MetricsService` - volume, e1RM, PR detection (TODO)
   - `PurchaseManager` - StoreKit 2 (TODO)
   - `EntitlementsService` - isPro / isCoach gating (TODO)
